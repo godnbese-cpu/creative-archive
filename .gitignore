@@ -14,6 +14,7 @@ dist-ssr
 .DS_Store
 .dsh-tool-vision
 .workbuddy
+publish.mjs
 
 # unrelated local file
 新建 DOC 文档.doc
