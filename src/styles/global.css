@@ -1,0 +1,563 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   DESIGN TOKENS — CREATIVE ARCHIVE / PRISM HALL
+
+   A dark exhibition hall lit from inside: near-black architecture, warm bone
+   paper, one electric accent, and a narrow band of iridescent light (blue →
+   violet → bone → acid). Gilt hairlines are the "museum" layer — they frame
+   work like plates on a wall rather than decorating a tech page.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #050507;
+  --color-carbon: #0a0a10;
+  --color-carbon-2: #101017;
+  --color-bone: #f4f0e7;
+  --color-bone-dim: #b9b4aa;
+  --color-mist: #7c786f;
+  --color-electric: #5b84ff;
+  --color-iris: #9d84ff;
+  --color-acid: #9df08a;
+  --color-gilt: #d9c9a4;
+  --color-line: #1b1b23;
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, 'Times New Roman',
+    'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Mono',
+    'PingFang SC', 'Microsoft YaHei', monospace;
+}
+
+/* ---------------------------------------------------------------------------
+   BASE
+--------------------------------------------------------------------------- */
+:root {
+  --gutter: clamp(1.25rem, 4.2vw, 4.5rem);
+  --max-w: 1720px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --gilt-line: rgba(217, 201, 164, 0.16);
+  --gilt-line-strong: rgba(217, 201, 164, 0.34);
+  --hairline: rgba(244, 240, 231, 0.1);
+  /* The house iridescence. Used sparingly: one word, one rule, one edge. */
+  --grad-iris: linear-gradient(
+    92deg,
+    #5b84ff 0%,
+    #9d84ff 32%,
+    #f4f0e7 58%,
+    #cfe9a8 82%,
+    #5b84ff 100%
+  );
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-feature-settings: 'ss01' on, 'cv11' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  /* A whisper of colour in the far background so the black never looks flat. */
+  background-image:
+    radial-gradient(120% 80% at 78% -10%, rgba(91, 132, 255, 0.07), transparent 60%),
+    radial-gradient(100% 70% at 8% 108%, rgba(157, 132, 255, 0.06), transparent 62%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--color-electric);
+  color: #050507;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050507;
+}
+::-webkit-scrollbar-thumb {
+  background: #23232c;
+  border: 2px solid #050507;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #31313c;
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-gilt);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+button:not(:disabled),
+[role='button']:not(:disabled) {
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------------
+   TYPOGRAPHY
+--------------------------------------------------------------------------- */
+.font-display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+}
+
+.t-display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: clamp(2.9rem, 9.2vw, 9.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.t-h1 {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 340;
+  font-size: clamp(2rem, 5.2vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.022em;
+}
+
+.t-h2 {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 360;
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+}
+
+/* Small mono label used as section kickers */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+.kicker--accent {
+  color: var(--color-electric);
+}
+
+.kicker--gilt {
+  color: var(--color-gilt);
+}
+
+/* Irridescent text — only for one or two words per screen. */
+.text-iris {
+  background: var(--grad-iris);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: iris-shift 14s var(--ease-inout) infinite;
+}
+
+@keyframes iris-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* A serif face with a gilt foil edge, used on large statements. */
+.foil {
+  background: linear-gradient(178deg, #fbf7ee 8%, #ded3bd 46%, #f7f2e6 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   CHINESE TYPOGRAPHY TUNING
+   Latin display faces carry negative tracking; CJK glyphs don't.
+--------------------------------------------------------------------------- */
+html[lang='zh-CN'] .t-display {
+  font-size: clamp(2.4rem, 7.2vw, 7rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+  font-weight: 350;
+}
+
+html[lang='zh-CN'] .t-h1,
+html[lang='zh-CN'] .t-h2 {
+  letter-spacing: 0;
+  line-height: 1.14;
+  font-weight: 380;
+}
+
+/* CJK glyphs have no true italic; synthetic obliques look broken. */
+html[lang='zh-CN'] .italic,
+html[lang='zh-CN'] em,
+html[lang='zh-CN'] i {
+  font-style: normal;
+}
+
+html[lang='zh-CN'] .kicker {
+  letter-spacing: 0.3em;
+}
+
+html[lang='zh-CN'] .prose-lede {
+  line-height: 1.95;
+}
+
+html[lang='zh-CN'] .font-display {
+  letter-spacing: 0;
+}
+
+/* Body copy */
+.prose-lede {
+  color: var(--color-bone-dim);
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  line-height: 1.72;
+  max-width: 58ch;
+}
+
+.measure {
+  max-width: 66ch;
+}
+
+/* ---------------------------------------------------------------------------
+   HAIRLINES, RULES & MUSEUM FRAMING
+--------------------------------------------------------------------------- */
+.hairline {
+  border: 1px solid var(--color-line);
+}
+
+.hairline-t {
+  border-top: 1px solid var(--color-line);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.gilt-t {
+  border-top: 1px solid var(--gilt-line);
+}
+
+/* A rule with measurement ticks — reads as a printed plate margin. */
+.rule-ticks {
+  position: relative;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.rule-ticks::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--gilt-line) 0 1px,
+    transparent 1px 96px
+  );
+}
+
+/* Frame for plates: double hairline + four registration corners. */
+.plate {
+  position: relative;
+  border: 1px solid var(--gilt-line);
+  background:
+    linear-gradient(180deg, rgba(18, 18, 26, 0.62), rgba(6, 6, 9, 0.3));
+  box-shadow:
+    inset 0 0 0 1px rgba(6, 6, 9, 0.9),
+    inset 0 0 90px rgba(91, 132, 255, 0.05),
+    0 40px 120px -60px rgba(0, 0, 0, 0.9);
+}
+
+.plate-inset {
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(244, 240, 231, 0.05);
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-color: var(--gilt-line-strong);
+  pointer-events: none;
+}
+
+/* Soft bloom behind a section — coloured light without a gradient template. */
+.bloom {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+/* Big outlined index numeral, set behind a heading. */
+.index-ghost {
+  font-family: var(--font-serif);
+  font-size: clamp(4.5rem, 12vw, 11rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 240, 231, 0.09);
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+/* ---------------------------------------------------------------------------
+   BUTTONS
+--------------------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--gilt-line);
+  color: var(--color-bone);
+  background: rgba(10, 10, 16, 0.4);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad-iris);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  z-index: -1;
+}
+
+.btn:hover {
+  border-color: rgba(244, 240, 231, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn--solid {
+  background: var(--color-bone);
+  border-color: var(--color-bone);
+  color: #050507;
+}
+
+.btn--solid:hover {
+  background: linear-gradient(100deg, #f7f3ea, #e3d8c2);
+  color: #050507;
+}
+
+.btn--ghost {
+  border-color: rgba(244, 240, 231, 0.16);
+  color: var(--color-bone-dim);
+}
+
+.btn--ghost:hover {
+  color: var(--color-bone);
+  border-color: rgba(244, 240, 231, 0.4);
+}
+
+.btn--accent {
+  border-color: rgba(91, 132, 255, 0.45);
+  color: #b9c6ff;
+  background: rgba(91, 132, 255, 0.06);
+}
+
+.btn--accent:hover {
+  color: var(--color-bone);
+  border-color: rgba(157, 132, 255, 0.7);
+  background: rgba(91, 132, 255, 0.12);
+}
+
+.btn .btn-arrow {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ---------------------------------------------------------------------------
+   ANIMATED UNDERLINE LINK
+--------------------------------------------------------------------------- */
+.link-line {
+  position: relative;
+  display: inline-block;
+}
+
+.link-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s var(--ease-out);
+}
+
+.link-line:hover::after,
+.link-line:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---------------------------------------------------------------------------
+   FILM GRAIN + SCAN
+--------------------------------------------------------------------------- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------------
+   CUSTOM CURSOR (desktop only; hidden on touch / reduced motion)
+--------------------------------------------------------------------------- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--color-bone);
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(217, 201, 164, 0.42);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.28s var(--ease-out),
+    height 0.28s var(--ease-out),
+    border-color 0.28s var(--ease-out),
+    background-color 0.28s var(--ease-out);
+}
+
+.cursor-ring.is-active {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(91, 132, 255, 0.65);
+  background: rgba(91, 132, 255, 0.07);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   KEYFRAMES
+--------------------------------------------------------------------------- */
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-100%);
+  }
+  55% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   REDUCED MOTION
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .text-iris {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LAYOUT SHELL & CURSOR-NONE
+--------------------------------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+html.cursor-none,
+html.cursor-none * {
+  cursor: none !important;
+}

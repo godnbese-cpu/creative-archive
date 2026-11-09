@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="30%" r="110%">
+      <stop offset="0%" stop-color="#101322"/>
+      <stop offset="100%" stop-color="#07080c"/>
+    </radialGradient>
+    <radialGradient id="glow">
+      <stop offset="0%" stop-color="#5b84ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#5b84ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2">
+      <stop offset="0%" stop-color="#86ef6e" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#86ef6e" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+
+  <!-- the network: nodes bound to drifting worlds -->
+  <g stroke="rgba(150,160,220,0.16)" stroke-width="1" fill="none">
+    <path d="M 200 700 Q 480 420 760 560 T 1320 320"/>
+    <path d="M 320 200 Q 620 480 900 260 T 1400 620"/>
+    <path d="M 120 420 Q 500 640 840 760 T 1480 480"/>
+    <line x1="760" y1="560" x2="900" y2="260"/>
+    <line x1="840" y1="760" x2="1320" y2="320"/>
+  </g>
+
+  <!-- world glows -->
+  <circle cx="760" cy="560" r="120" fill="url(#glow)"/>
+  <circle cx="900" cy="260" r="90" fill="url(#glow2)"/>
+  <circle cx="1320" cy="320" r="100" fill="url(#glow)" opacity="0.7"/>
+
+  <!-- nodes -->
+  <g fill="#ece9e2">
+    <circle cx="200" cy="700" r="3"/><circle cx="320" cy="200" r="2.4"/>
+    <circle cx="480" cy="430" r="2"/><circle cx="760" cy="560" r="5"/>
+    <circle cx="900" cy="260" r="4"/><circle cx="1320" cy="320" r="4.4"/>
+    <circle cx="1400" cy="620" r="2.6"/><circle cx="120" cy="420" r="2.2"/>
+    <circle cx="840" cy="760" r="3.4"/><circle cx="1480" cy="480" r="2"/>
+  </g>
+  <g fill="#5b84ff">
+    <circle cx="620" cy="480" r="2.2" opacity="0.8"/><circle cx="1080" cy="440" r="2" opacity="0.7"/>
+    <circle cx="520" cy="640" r="1.8" opacity="0.6"/><circle cx="1180" cy="180" r="1.8" opacity="0.7"/>
+  </g>
+
+  <!-- field stars -->
+  <g fill="#ece9e2">
+    <circle cx="90" cy="150" r="1" opacity="0.4"/><circle cx="260" cy="90" r="0.8" opacity="0.3"/>
+    <circle cx="450" cy="140" r="1.2" opacity="0.45"/><circle cx="640" cy="80" r="0.9" opacity="0.35"/>
+    <circle cx="980" cy="120" r="1" opacity="0.4"/><circle cx="1240" cy="90" r="1.2" opacity="0.45"/>
+    <circle cx="1520" cy="160" r="0.8" opacity="0.3"/><circle cx="1560" cy="760" r="1" opacity="0.4"/>
+    <circle cx="140" cy="880" r="1.1" opacity="0.4"/><circle cx="500" cy="920" r="0.8" opacity="0.3"/>
+    <circle cx="960" cy="900" r="1.1" opacity="0.4"/><circle cx="1280" cy="860" r="0.9" opacity="0.35"/>
+    <circle cx="700" cy="200" r="0.9" opacity="0.35"/><circle cx="160" cy="560" r="0.9" opacity="0.35"/>
+  </g>
+
+  <!-- grid hint -->
+  <g stroke="rgba(236,233,226,0.045)" stroke-width="1">
+    <line x1="400" y1="0" x2="400" y2="1000"/><line x1="800" y1="0" x2="800" y2="1000"/>
+    <line x1="1200" y1="0" x2="1200" y2="1000"/><line x1="0" y1="330" x2="1600" y2="330"/>
+    <line x1="0" y1="660" x2="1600" y2="660"/>
+  </g>
+</svg>

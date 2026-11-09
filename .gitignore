@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build output
+dist
+dist-ssr
+
+# local / editor
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+.dsh-tool-vision
+.workbuddy
+
+# unrelated local file
+新建 DOC 文档.doc
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# typescript
+*.tsbuildinfo
+node_modules/.tmp
